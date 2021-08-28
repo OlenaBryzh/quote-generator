@@ -1,9 +1,7 @@
-const quoteConainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quotes');
 const authorText = document.getElementById('author');
 const newQuoteBtn = document.getElementById('new-quote');
 const twitterBtn = document.getElementById('twitter');
-
 
 //get quote from API
 async function getQuote(){
@@ -14,15 +12,15 @@ const apiUrl = 'https://type.fit/api/quotes/?method=getQuote&lang=en&format=json
     let number = Math.floor(Math.random() * data.length);
     let quote;
     if (data[number].author === null) {
-    quote.author = "Unknown";
+      quote = data[number]
+      quote.author = "Unknown author";
     } else {
-    quote = data[number];
+      quote = data[number];
     }
     quoteText.innerText = quote.text;
     authorText.innerText = quote.author;
   } catch (error) {  
-    getQuote();  
-    console.log('Ooops', error)
+    alert('Seems like it is' + error);
   }
 }
 
@@ -38,5 +36,5 @@ function tweetQuote() {
 newQuoteBtn.addEventListener('click', getQuote);
 twitterBtn.addEventListener('click', tweetQuote);
 
-//loaded
+//loading
  getQuote();
